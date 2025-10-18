@@ -1,0 +1,29 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Tanque {
+  id          Int       @id @default(autoincrement())
+  nome        String
+  tipo        String
+  capacidade  Float
+  volumeAtual Float   @default(0)
+  transferenciasOrigem Transferencia[] @relation("origem")
+  transferenciasDestino Transferencia[] @relation("destino")
+}
+
+model Transferencia {
+  id         Int     @id @default(autoincrement())
+  origemId   Int
+  destinoId  Int
+  quantidade Float
+  data       DateTime @default(now())
+
+  origem     Tanque @relation("origem", fields: [origemId], references: [id])
+  destino    Tanque @relation("destino", fields: [destinoId], references: [id])
+}
