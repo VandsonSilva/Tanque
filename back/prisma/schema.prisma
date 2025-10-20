@@ -7,23 +7,40 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Role {
+  ADMIN
+  USER
+}
+
+model User {
+  id              Int              @id @default(autoincrement())
+  nome            String
+  email           String           @unique
+  password        String
+  role            Role             @default(USER)
+  createdAt       DateTime         @default(now())
+  transferencias  Transferencia[]
+}
+
 model Tanque {
-  id          Int       @id @default(autoincrement())
-  nome        String
-  tipo        String
-  capacidade  Float
-  volumeAtual Float   @default(0)
-  transferenciasOrigem Transferencia[] @relation("origem")
-  transferenciasDestino Transferencia[] @relation("destino")
+  id                    Int                @id @default(autoincrement())
+  nome                  String
+  tipo                  String
+  capacidade            Float
+  volumeAtual           Float              @default(0)
+  transferenciasOrigem  Transferencia[]    @relation("origem")
+  transferenciasDestino Transferencia[]    @relation("destino")
 }
 
 model Transferencia {
-  id         Int     @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   origemId   Int
   destinoId  Int
   quantidade Float
-  data       DateTime @default(now())
+  data       DateTime  @default(now())
+  userId     Int
 
-  origem     Tanque @relation("origem", fields: [origemId], references: [id])
-  destino    Tanque @relation("destino", fields: [destinoId], references: [id])
+  origem     Tanque    @relation("origem", fields: [origemId], references: [id])
+  destino    Tanque    @relation("destino", fields: [destinoId], references: [id])
+  usuario    User      @relation(fields: [userId], references: [id])
 }

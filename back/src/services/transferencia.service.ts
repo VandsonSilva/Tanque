@@ -4,6 +4,7 @@ interface TransferData {
   origemId: number;
   destinoId: number;
   quantidade: number;
+  
 }
 
 export const createTransferencia = async (data: TransferData) => {

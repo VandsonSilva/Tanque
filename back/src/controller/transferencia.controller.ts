@@ -4,6 +4,7 @@ import * as transferenciaService from "../services/transferencia.service";
 export const createTransferencia = async (req: Request, res: Response) => {
   try {
     const { origemId, destinoId, quantidade } = req.body;
+    const quantidadeKG = quantidade * 0.922;
     const transf = await transferenciaService.createTransferencia({ origemId, destinoId, quantidade });
     res.json(transf);
   } catch (err: any) {
