@@ -1,4 +1,5 @@
-import { User } from "@prisma/client"; // ou apenas um id, dependendo do que você armazena no JWT
+/// <reference types="node" />
+import { User } from "@prisma/client"; // apenas se você precisar dos tipos do User no JWT
 
 declare global {
   namespace Express {
