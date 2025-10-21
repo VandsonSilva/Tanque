@@ -1,4 +1,5 @@
 import React from "react";
+import "./TankCard.css"
 
 interface TankCardProps {
   id?: number;
@@ -25,7 +26,7 @@ export default function TankCard({ nome, capacidade, volumeAtual, tipo }: TankCa
 
       <div style={{ marginTop: 8, display: "flex", justifyContent: "space-between", fontSize: 13 }}>
         <span>{pct.toFixed(0)}%</span>
-        <span>{(capacidade - volumeAtual).toFixed(2)} L livre</span>
+        <span>{(capacidade - volumeAtual).toFixed(2)} KG livre</span>
       </div>
     </div>
   );

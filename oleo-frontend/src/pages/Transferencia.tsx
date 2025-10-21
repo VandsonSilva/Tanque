@@ -1,6 +1,7 @@
 import { JSX, useEffect, useState } from "react";
-import api  from "../services/api";
+import api from "../services/api";
 import TankCard from "../components/TankCard";
+import "./Transferencia.css"
 
 interface Tanque {
   id: number;
@@ -18,7 +19,6 @@ export default function Transferencia(): JSX.Element {
 
   const token = localStorage.getItem("token") || "";
 
-  // Carregar tanques
   useEffect(() => {
     api
       .get<Tanque[]>("/tanques", { headers: { Authorization: `Bearer ${token}` } })
@@ -34,14 +34,18 @@ export default function Transferencia(): JSX.Element {
       return;
     }
     if (origemId === destinoId) {
-      alert("Tanque de origem e destino não podem ser iguais!");
+      alert("Origem e destino não podem ser iguais!");
       return;
     }
 
     try {
       await api.post(
         "/transferencias",
-        { origemId, destinoId, quantidade: Number(quantidade) },
+        {
+          origemId,
+          destinoId,
+          quantidade: Number(quantidade),
+        },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -50,7 +54,6 @@ export default function Transferencia(): JSX.Element {
       setDestinoId("");
       setQuantidade("");
 
-      // Atualiza os tanques
       const res = await api.get<Tanque[]>("/tanques", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -75,6 +78,7 @@ export default function Transferencia(): JSX.Element {
       <form className="form-container" onSubmit={handleTransferir}>
         <h2>Nova Transferência</h2>
 
+        {/* Origem */}
         <select
           value={origemId}
           onChange={(e) => setOrigemId(e.target.value === "" ? "" : Number(e.target.value))}
@@ -88,6 +92,7 @@ export default function Transferencia(): JSX.Element {
           ))}
         </select>
 
+        {/* Destino */}
         <select
           value={destinoId}
           onChange={(e) => setDestinoId(e.target.value === "" ? "" : Number(e.target.value))}
@@ -99,6 +104,8 @@ export default function Transferencia(): JSX.Element {
               {t.nome} — {t.volumeAtual}L
             </option>
           ))}
+          {/* Opção de consumo */}
+          
         </select>
 
         <input

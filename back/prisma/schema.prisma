@@ -20,6 +20,7 @@ model User {
   role            Role             @default(USER)
   createdAt       DateTime         @default(now())
   transferencias  Transferencia[]
+  abastecimentos  Abastecimento[]  @relation("UserAbastecimentos")
 }
 
 model Tanque {
@@ -30,6 +31,7 @@ model Tanque {
   volumeAtual           Float              @default(0)
   transferenciasOrigem  Transferencia[]    @relation("origem")
   transferenciasDestino Transferencia[]    @relation("destino")
+  abastecimentos        Abastecimento[]    // relação inversa
 }
 
 model Transferencia {
@@ -39,8 +41,21 @@ model Transferencia {
   quantidade Float
   data       DateTime  @default(now())
   userId     Int
+  consumo    Float?    // opcional
 
   origem     Tanque    @relation("origem", fields: [origemId], references: [id])
   destino    Tanque    @relation("destino", fields: [destinoId], references: [id])
   usuario    User      @relation(fields: [userId], references: [id])
+}
+
+model Abastecimento {
+  id         Int      @id @default(autoincrement())
+  tanqueId   Int
+  quantidade Float
+  data       DateTime @default(now())
+  userId     Int
+  notaFiscal  String?  // <- opcional
+
+  tanque     Tanque   @relation(fields: [tanqueId], references: [id])
+  usuario    User     @relation("UserAbastecimentos", fields: [userId], references: [id])
 }

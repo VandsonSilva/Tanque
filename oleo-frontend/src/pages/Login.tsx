@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../contexto/AuthContext";
 import api from "../services/api";
+import "./Login.css"
 
 export const Login = () => {
   const { setUser } = useAuth();
@@ -41,7 +42,7 @@ export const Login = () => {
 
       // redireciona conforme o cargo
       if (user.role === "ADMIN") {
-        window.location.href = "/painel";
+        window.location.href = "/dashboard";
       } else {
         window.location.href = "/dashboard";
       }

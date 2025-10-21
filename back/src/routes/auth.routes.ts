@@ -5,7 +5,7 @@ import { AuthMiddleware } from "../middlewares/authe.middleware";
 const router = Router();
 
 router.post("/login", authController.login);
-router.post("/register", authController.register); // apenas admin autenticado
+router.post("/register", authController.register); 
 router.get("/me", AuthMiddleware, authController.me);
 
 export default router;

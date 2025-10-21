@@ -4,7 +4,8 @@ interface TransferData {
   origemId: number;
   destinoId: number;
   quantidade: number;
-  
+  userId: number;
+  consumo?: number; 
 }
 
 export const createTransferencia = async (data: TransferData) => {
@@ -25,26 +26,61 @@ export const createTransferencia = async (data: TransferData) => {
     data: { volumeAtual: destino.volumeAtual + data.quantidade },
   });
 
-  // Registra a transferência
+  // Cria a transferência incluindo consumo, se fornecido
   return await prisma.transferencia.create({
     data: {
       origemId: origem.id,
       destinoId: destino.id,
       quantidade: data.quantidade,
+      userId: data.userId,
+      consumo: data.consumo ?? null // null se não informado
     },
     include: {
       origem: true,
       destino: true,
+      usuario: true,
     },
   });
 };
 
-export const getAllTransferencias = async () => {
+
+interface FilterTransferencia {
+  origemId?: number;
+  destinoId?: number | "consumo";
+  dataInicial?: string;
+  dataFinal?: string;
+}
+
+export const getTransferencias = async (filters: FilterTransferencia) => {
+  const { origemId, destinoId, dataInicial, dataFinal } = filters;
+  const where: any = {};
+
+  // Filtro por origem
+  if (origemId) where.origemId = origemId;
+
+  // Filtro por destino
+  if (destinoId) {
+    if (destinoId === "consumo") {
+      where.destinoId = null;
+    } else {
+      where.destinoId = destinoId;
+    }
+  }
+
+  // Filtro por datas
+  if (dataInicial || dataFinal) {
+    where.data = {};
+    if (dataInicial) where.data.gte = new Date(dataInicial);
+    if (dataFinal) {
+      const dtFinal = new Date(dataFinal);
+      dtFinal.setHours(23, 59, 59, 999);
+      where.data.lte = dtFinal;
+    }
+  }
+
   return await prisma.transferencia.findMany({
-    include: {
-      origem: true,
-      destino: true,
-    },
+    where,
+    include: { origem: true, destino: true, usuario: true },
     orderBy: { data: "desc" },
   });
 };

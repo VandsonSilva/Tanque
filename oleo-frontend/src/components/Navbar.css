@@ -1,0 +1,64 @@
+/* Navbar.css - estilo profissional da barra de navegação */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 12px 24px;
+  background-color: #fc1f02;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.navbar a:hover {
+  color: #fff9e6;
+  transform: scale(1.05);
+}
+
+.navbar a.active {
+  text-decoration: underline;
+  opacity: 0.95;
+}
+
+.navbar button {
+  margin-left: auto;
+  padding: 8px 16px;
+  background-color: #d4fa00;
+  color: rgb(15, 15, 15);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.navbar button:hover {
+  background-color: #b07f25;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .navbar a, .navbar button {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -14,6 +14,7 @@ function AuthProviderNavbar() {
           <Link to="/transferencia">Transferência</Link>
           <Link to="/historico">Histórico</Link>
           <Link to="/registro">Registro</Link>
+          <Link to="/abastecimento">Abastecimento</Link>
         </>
       )}
       <button onClick={logout}>Sair</button>

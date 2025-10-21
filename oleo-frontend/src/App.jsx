@@ -6,7 +6,10 @@ import TanqueRegister from "./pages/TanqueRegister";
 import { AuthProvider, useAuth } from "./contexto/AuthContext";
 import { Login } from "./pages/Login";
 import { PrivateRoute } from "./components/PrivateRoute";
-import "./styles/global.css";
+import Abastecimento from './pages/Abastecimento';
+import UsuarioRegistro from './pages/UsuarioRegistro'
+
+import "../src/components/Navbar.css"
 
 // Navbar que só aparece quando o usuário está logado
 function Navbar() {
@@ -20,6 +23,8 @@ function Navbar() {
       {user.role === "ADMIN" && <Link to="/transferencia">Transferência</Link>}
       {user.role === "ADMIN" && <Link to="/historico">Histórico</Link>}
       {user.role === "ADMIN" && <Link to="/registro">Registro de Tanque</Link>}
+      {user.role === "ADMIN" && <Link to="/abastecimento">Abastecimento</Link>}
+      {user.role === "ADMIN" && <Link to="/cadastro_usuario">Cadastro de Usuario</Link>}
       <button onClick={logout}>Sair</button>
     </nav>
   );
@@ -64,12 +69,30 @@ function App() {
             }
           />
 
+          {/* Abastecimento (apenas Admin) */}
+          <Route
+            path="/abastecimento"
+            element={
+              <PrivateRoute role="ADMIN">
+                <Abastecimento />
+              </PrivateRoute>
+            }
+          />
+
           {/* Registro de Tanque (apenas Admin) */}
           <Route
             path="/registro"
             element={
               <PrivateRoute role="ADMIN">
                 <TanqueRegister />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/cadastro_usuario"
+            element={
+              <PrivateRoute role="ADMIN">
+                <UsuarioRegistro />
               </PrivateRoute>
             }
           />

@@ -1,0 +1,58 @@
+/* TankCard.css */
+
+.tank-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tank-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.tank-card h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #111827;
+}
+
+.tank-card small {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.tank-card p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #374151;
+}
+
+/* Barra de progresso */
+.progress {
+  background: #f3f4f6;
+  border-radius: 8px;
+  height: 12px;
+  overflow: hidden;
+}
+
+.bar {
+  background: #d9a441;
+  height: 12px;
+  border-radius: 8px;
+  transition: width 0.3s ease;
+}
+
+/* Info adicional abaixo da barra */
+.tank-card div[style*="justify-content: space-between"] {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 8px;
+}

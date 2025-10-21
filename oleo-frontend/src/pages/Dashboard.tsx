@@ -1,6 +1,7 @@
 import { JSX, useEffect, useState } from "react";
 import  api  from "../services/api";
 import TankCard from "../components/TankCard";
+import "./Dashboard.css"
 
 // Interface dos tanques
 interface Tanque {

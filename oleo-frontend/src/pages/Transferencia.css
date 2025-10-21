@@ -1,0 +1,131 @@
+/* ===========================
+   CONTAINER GERAL
+=========================== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  background-color: #fafafa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* ===========================
+   TÍTULO
+=========================== */
+.container h1 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 2rem;
+  letter-spacing: 0.5px;
+  border-bottom: 3px solid #d9a441;
+  display: inline-block;
+  padding-bottom: 0.4rem;
+}
+
+/* ===========================
+   GRID DE TANQUES
+=========================== */
+.tank-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+
+/* ===========================
+   FORMULÁRIO DE TRANSFERÊNCIA
+=========================== */
+.form-container {
+  background-color: #fff;
+  padding: 1.8rem 2rem;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: fadeIn 0.4s ease;
+}
+
+.form-container h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid #f0c24b;
+  display: inline-block;
+  align-self: center;
+  padding-bottom: 0.3rem;
+}
+
+/* ===========================
+   CAMPOS DO FORMULÁRIO
+=========================== */
+.form-container select,
+.form-container input {
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: all 0.2s ease;
+}
+
+.form-container select:focus,
+.form-container input:focus {
+  border-color: #d9a441;
+  box-shadow: 0 0 6px rgba(217, 164, 65, 0.3);
+  outline: none;
+}
+
+/* ===========================
+   BOTÃO DE AÇÃO
+=========================== */
+.form-container button {
+  background-color: #d9a441;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-top: 0.5rem;
+}
+
+.form-container button:hover {
+  background-color: #c8922c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* ===========================
+   ANIMAÇÃO SUAVE
+=========================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===========================
+   RESPONSIVIDADE
+=========================== */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  .tank-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-container {
+    padding: 1.5rem;
+  }
+}
