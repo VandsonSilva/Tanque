@@ -42,9 +42,9 @@ export const Login = () => {
 
       // redireciona conforme o cargo
       if (user.role === "ADMIN") {
-        window.location.href = "/dashboard";
+        window.location.href = "/";
       } else {
-        window.location.href = "/dashboard";
+        window.location.href = "/";
       }
     } catch (err: any) {
       console.error(err);

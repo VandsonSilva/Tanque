@@ -63,7 +63,7 @@ function App() {
           <Route
             path="/historico"
             element={
-              <PrivateRoute role="ADMIN">
+              <PrivateRoute >
                 <Historico />
               </PrivateRoute>
             }
