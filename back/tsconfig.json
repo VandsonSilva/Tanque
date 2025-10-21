@@ -1,19 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES2020",                        // Código de saída moderno
-    "module": "CommonJS",                       // Node usa CommonJS
-    "lib": ["ES2020"],                          // Bibliotecas padrão
-    "rootDir": "src",                           // Diretório de entrada
-    "outDir": "dist",                           // Diretório de saída compilado
-    "strict": true,                             // Ativa checagem rigorosa
-    "esModuleInterop": true,                    // Permite importações compatíveis com CommonJS
-    "forceConsistentCasingInFileNames": true,  // Evita problemas de maiúsculas/minúsculas
-    "skipLibCheck": true,                       // Pula checagem de bibliotecas
-    "resolveJsonModule": true,                  // Permite importar arquivos .json
-    "noImplicitAny": true,                      // Evita variáveis sem tipo
-    "moduleResolution": "node",                 // Resolve módulos estilo Node
-    "allowJs": false                             // Não compila arquivos JS, só TS
+    "target": "ES2020",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "types": ["node", "express"], 
+    "lib": ["ES2020"]
   },
-  "include": ["src"],                           // Inclui toda a pasta src
-  "exclude": ["node_modules", "dist"]           // Exclui node_modules e dist
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }
