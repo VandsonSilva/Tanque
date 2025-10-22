@@ -10,6 +10,15 @@ export const getAllTanques = async () => {
   return await prisma.tanque.findMany();
 };
 
+export const deleteTanques = async (id: number) => {
+  return await prisma.tanque.delete({
+    where: { id },
+  });
+};
+
+
+
+
 export const getTanqueById = async (id: number) => {
   return await prisma.tanque.findUnique({ where: { id } });
 };

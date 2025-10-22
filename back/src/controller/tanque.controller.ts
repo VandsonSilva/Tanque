@@ -10,6 +10,20 @@ export const getTanques = async (req: Request, res: Response) => {
   }
 };
 
+export const deleteTanques = async(req: Request, res: Response) => {
+  try {
+    const IdTanque = Number(req.params.id)
+     if (isNaN(IdTanque)) {
+      return res.status(400).json({ error: "ID inválido." });
+    }
+    await tanqueService.deleteTanques(IdTanque)
+    return res.status(200).json({ message: "Tanque deletado com sucesso!" });
+
+  } catch (err: any){
+    res.status(500).json({message: "Não foi possivel excluir o tanque, verifique os parametros"})
+  }
+}
+
 export const cadastrarTanque = async (req: Request, res: Response) => {
   try {
     const { nome, tipo, capacidade } = req.body;
