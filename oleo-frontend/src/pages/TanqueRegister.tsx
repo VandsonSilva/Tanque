@@ -14,6 +14,8 @@ interface Tanque extends TanqueFormData {
 }
 
 export default function TanqueRegister() {
+  const token = localStorage.getItem("token");
+
   const [modo, setModo] = useState<"cadastrar" | "excluir">("cadastrar");
   const [form, setForm] = useState<TanqueFormData>({
     nome: "",
@@ -75,7 +77,14 @@ export default function TanqueRegister() {
     if (!confirm("Deseja realmente excluir este tanque?")) return;
 
     try {
-      await api.delete(`/tanques/${id}`);
+      await api.delete(`/tanques/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
       setSuccess("Tanque excluído com sucesso!");
       await loadTanques(); // Recarrega a lista após exclusão
     } catch (err: any) {
