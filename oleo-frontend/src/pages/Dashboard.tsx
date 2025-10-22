@@ -1,8 +1,8 @@
 import { JSX, useEffect, useState } from "react";
 import { useAuth } from "../contexto/AuthContext";
-import  api  from "../services/api";
+import api from "../services/api";
 import TankCard from "../components/TankCard";
-import "./Dashboard.css"
+import "./Dashboard.css";
 
 // Interface dos tanques
 interface Tanque {
@@ -17,23 +17,23 @@ export default function Dashboard(): JSX.Element {
   const { user } = useAuth();
   const [tanques, setTanques] = useState<Tanque[]>([]);
 
-  
-   useEffect(() => {
+  useEffect(() => {
     api
       .get<Tanque[]>("/tanques")
       .then((res) => {
         if (user?.role === "USER") {
-          // se for USER, mostra apenas os 4 primeiros
           const nomesDesejados = ["TANQUE 01", "TANQUE 02", "TANQUE 03", "TANQUE 04"];
-          const filtrados = res.data.filter(t => nomesDesejados.includes(t.nome));
+          const filtrados = res.data.filter((t) => nomesDesejados.includes(t.nome));
           setTanques(filtrados);
         } else {
-          // se for ADMIN, mostra todos
           setTanques(res.data);
         }
       })
       .catch(() => setTanques([]));
   }, [user]);
+
+  // Calcula o saldo total
+  const saldoTotal = tanques.reduce((total, tanque) => total + tanque.volumeAtual, 0);
 
   return (
     <div className="container">
@@ -42,6 +42,11 @@ export default function Dashboard(): JSX.Element {
         {tanques.map((t) => (
           <TankCard key={t.id} {...t} />
         ))}
+      </div>
+
+      {/* Exibição do saldo total */}
+      <div className="saldo-total">
+        <h2>Saldo total do óleo: {saldoTotal.toFixed(2)}</h2>
       </div>
     </div>
   );
