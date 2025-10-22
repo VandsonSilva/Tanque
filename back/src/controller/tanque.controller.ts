@@ -12,17 +12,23 @@ export const getTanques = async (req: Request, res: Response) => {
 
 export const deleteTanques = async(req: Request, res: Response) => {
   try {
-    const IdTanque = Number(req.params.id)
-     if (isNaN(IdTanque)) {
+    const IdTanque = Number(req.params.id);
+    if (isNaN(IdTanque)) {
       return res.status(400).json({ error: "ID inválido." });
     }
-    await tanqueService.deleteTanques(IdTanque)
+
+    await tanqueService.deleteTanques(IdTanque);
     return res.status(200).json({ message: "Tanque deletado com sucesso!" });
 
-  } catch (err: any){
-    res.status(500).json({message: "Não foi possivel excluir o tanque, verifique os parametros"})
+  } catch (err: any) {
+    if (err.code === 'P2025') {
+      // Prisma error: record to delete does not exist
+      return res.status(404).json({ message: "Tanque não encontrado." });
+    }
+    res.status(500).json({ message: "Não foi possível excluir o tanque, verifique os parâmetros" });
   }
 }
+
 
 export const cadastrarTanque = async (req: Request, res: Response) => {
   try {
