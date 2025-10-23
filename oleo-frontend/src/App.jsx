@@ -103,7 +103,7 @@ function App() {
             path="/update_password"
             element={
               <PrivateRoute >
-                <UsuarioRegistro />
+                <SenhaUpdate />
               </PrivateRoute>
             }
           />
