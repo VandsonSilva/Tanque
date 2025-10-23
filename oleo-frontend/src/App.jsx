@@ -8,6 +8,7 @@ import { Login } from "./pages/Login";
 import { PrivateRoute } from "./components/PrivateRoute";
 import Abastecimento from './pages/Abastecimento';
 import UsuarioRegistro from './pages/UsuarioRegistro'
+import SenhaUpdate from './pages/SenhaUpdate'
 
 import "../src/components/Navbar.css"
 
@@ -21,10 +22,11 @@ function Navbar() {
     <nav className="navbar">
       <Link to="/">Dashboard</Link>
       {user.role === "ADMIN" && <Link to="/transferencia">Transferência</Link>}
-      {user.role === "ADMIN" && <Link to="/historico">Histórico</Link>}
+      {user && <Link to="/historico">Histórico</Link>}
       {user.role === "ADMIN" && <Link to="/registro">Registro de Tanque</Link>}
       {user.role === "ADMIN" && <Link to="/abastecimento">Abastecimento</Link>}
       {user.role === "ADMIN" && <Link to="/cadastro_usuario">Cadastro de Usuario</Link>}
+      {user && <Link to="/update_password">Alterar Senha</Link>}
       <button onClick={logout}>Sair</button>
     </nav>
   );
@@ -92,6 +94,15 @@ function App() {
             path="/cadastro_usuario"
             element={
               <PrivateRoute role="ADMIN">
+                <UsuarioRegistro />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/update_password"
+            element={
+              <PrivateRoute >
                 <UsuarioRegistro />
               </PrivateRoute>
             }
