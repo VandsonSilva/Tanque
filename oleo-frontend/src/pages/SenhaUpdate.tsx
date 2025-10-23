@@ -26,7 +26,7 @@ export default function AlterarSenha() {
 
     try {
       await api.put(
-        "/update_password",
+        "/auth/update_password",
         { email, password: novaSenha },
         { headers: { Authorization: `Bearer ${token}` } }
       );
