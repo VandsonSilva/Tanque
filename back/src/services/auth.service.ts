@@ -18,6 +18,27 @@ export const register = async (nome: string, email: string, password: string, ro
   return { id: user.id, nome: user.nome, email: user.email, role: user.role };
 };
 
+
+export const updatePassword = async (email: string, newPassword: string) => {
+  const existing = await prisma.user.findUnique({ where: { email } });
+
+  if (!existing) {
+    throw new Error("Usuário não encontrado");
+  }
+
+  const hashed = await bcrypt.hash(newPassword, 10);
+
+  const updatedUser = await prisma.user.update({
+    where: { email },
+    data: {
+      password: hashed,      
+    },
+  });
+
+  return updatedUser;
+};
+
+
 export const login = async (email: string, password: string) => {
   const user = await prisma.user.findUnique({ where: { email } });
   if (!user) throw new Error("Usuário não encontrado");
