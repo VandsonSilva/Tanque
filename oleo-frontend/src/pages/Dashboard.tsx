@@ -10,7 +10,7 @@ interface Tanque {
   nome: string;
   capacidade: number;
   volumeAtual: number;
-  tipo?: "principal" | "producao";
+  tipo?: "principal" | "producao" | "extra";
 }
 
 export default function Dashboard(): JSX.Element {
@@ -32,8 +32,16 @@ export default function Dashboard(): JSX.Element {
       .catch(() => setTanques([]));
   }, [user]);
 
-  // Calcula o saldo total
+  // Saldo total de todos os tanques
   const saldoTotal = tanques.reduce((total, tanque) => total + tanque.volumeAtual, 0);
+
+  // Filtrando tanques extras (ou sobras)
+  const tanquesExtras = tanques.filter(
+    (t) => !["TANQUE 01", "TANQUE 02", "TANQUE 03", "TANQUE 04", "AMANTEGAGEM", "EXTRUSORA"].includes(t.nome)
+  );
+
+  // Quantidade total de óleo nos tanques extras
+  const totalExtras = tanquesExtras.reduce((total, tanque) => total + tanque.volumeAtual, 0);
 
   return (
     <div className="container">
@@ -47,6 +55,25 @@ export default function Dashboard(): JSX.Element {
       {/* Exibição do saldo total */}
       <div className="saldo-total">
         <h2>Saldo total do óleo: {saldoTotal.toFixed(2)}</h2>
+
+        {/* ADMIN vê tanques extras detalhados */}
+        {user?.role === "ADMIN" ? (
+          <div className="tanques-extras-admin">
+            <h3>Tanques extras:</h3>
+            <ul>
+              {tanquesExtras.map((t) => (
+                <li key={t.id}>
+                  {t.nome}: {t.volumeAtual.toFixed(2)}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          // USER vê apenas a soma dos tanques extras
+          <p className="sobras-extras">
+            Soma dos tanques extras: <strong>{totalExtras.toFixed(2)}</strong>
+          </p>
+        )}
       </div>
     </div>
   );
