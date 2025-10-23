@@ -22,7 +22,7 @@ export default function Dashboard(): JSX.Element {
       .get<Tanque[]>("/tanques")
       .then((res) => {
         if (user?.role === "USER") {
-          const nomesDesejados = ["TANQUE 01", "TANQUE 02", "TANQUE 03", "TANQUE 04"];
+          const nomesDesejados = ["TANQUE 01", "TANQUE 02", "TANQUE 03", "TANQUE 04", "AMANTEGAGEM", "EXTRUSORA"];
           const filtrados = res.data.filter((t) => nomesDesejados.includes(t.nome));
           setTanques(filtrados);
         } else {
