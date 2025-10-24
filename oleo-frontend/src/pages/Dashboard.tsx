@@ -22,7 +22,15 @@ export default function Dashboard(): JSX.Element {
       .get<Tanque[]>("/tanques")
       .then((res) => {
         if (user?.role === "USER") {
-          const nomesDesejados = ["TANQUE 01", "TANQUE 02", "TANQUE 03", "TANQUE 04", "AMANTEGAGEM", "EXTRUSORA"];
+          const nomesDesejados = [
+            "TANQUE 01",
+            "TANQUE 02",
+            "TANQUE 03",
+            "TANQUE 04",
+            "AMANTEGAGEM",
+            "EXTRUSORA",
+            "TUBULAÇÃO", // adiciona aqui também para USER
+          ];
           const filtrados = res.data.filter((t) => nomesDesejados.includes(t.nome));
           setTanques(filtrados);
         } else {
@@ -35,10 +43,13 @@ export default function Dashboard(): JSX.Element {
   // Saldo total de todos os tanques
   const saldoTotal = tanques.reduce((total, tanque) => total + tanque.volumeAtual, 0);
 
-  // Filtrando tanques extras (ou sobras)
+  // Tanques extras (exclui os principais e produção, mas mantém tubulação no array geral)
   const tanquesExtras = tanques.filter(
-    (t) => !["TUBULAÇÃO"].includes(t.nome)
+    (t) => t.nome.toLowerCase() !== "tubulação"
   );
+
+  // Localiza o tanque "Tubulação" diretamente
+  const tubulacao = tanques.find((t) => t.nome.toLowerCase() === "tubulação");
 
   // Quantidade total de óleo nos tanques extras
   const totalExtras = tanquesExtras.reduce((total, tanque) => total + tanque.volumeAtual, 0);
@@ -46,6 +57,7 @@ export default function Dashboard(): JSX.Element {
   return (
     <div className="container">
       <h1>Controle de Tanques</h1>
+
       <div className="tank-grid">
         {tanques.map((t) => (
           <TankCard key={t.id} {...t} />
@@ -69,9 +81,10 @@ export default function Dashboard(): JSX.Element {
             </ul>
           </div>
         ) : (
-          // USER vê apenas a soma dos tanques extras
+          // USER vê apenas o tanque "Tubulação"
           <p className="sobras-extras">
-            Soma dos tanques extras: <strong>{totalExtras.toFixed(2)}</strong>
+            Óleo na tubulação:{" "}
+            <strong>{tubulacao ? tubulacao.volumeAtual.toFixed(2) : "0.00"}</strong>
           </p>
         )}
       </div>
