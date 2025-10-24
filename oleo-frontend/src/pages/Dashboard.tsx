@@ -37,7 +37,7 @@ export default function Dashboard(): JSX.Element {
 
   // Filtrando tanques extras (ou sobras)
   const tanquesExtras = tanques.filter(
-    (t) => !["TANQUE 01", "TANQUE 02", "TANQUE 03", "TANQUE 04", "AMANTEGAGEM", "EXTRUSORA"].includes(t.nome)
+    (t) => !["TUBULAÇÃO"].includes(t.nome)
   );
 
   // Quantidade total de óleo nos tanques extras
